@@ -20,7 +20,8 @@ class DeviceModel extends DAO {
             device_locale_os: null,
             device_locale_preferred: null,
             device_firstinstall: null,
-            device_last_ip: null,
+            device_last_local_ip: null,
+            device_last_external_ip: null,
             device_lastupdate_app: null,
             device_manufacturer: null,
             device_timezone: null,
@@ -29,6 +30,10 @@ class DeviceModel extends DAO {
         };
 
         this.fields = { ...this.defaultFields };
+    }
+
+    setDeviceExternalIp(ip) {
+        this.fields.device_last_external_ip = ip;
     }
 }
 

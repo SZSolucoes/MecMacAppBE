@@ -53,6 +53,7 @@ const userRouter = (express, sqlCon, sockets) => {
     router.post('/postUserInfo', async (req, res) => {
         const params = req.body;
         const retJson = { success: false, message: '' };
+        const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
         const valid = RoutersUtils.checkParamsByToken(params);
 
@@ -64,6 +65,7 @@ const userRouter = (express, sqlCon, sockets) => {
 
             const device = new DeviceModel(sqlCon, sockets);
             device.setAssocObjFields(params);
+            device.setDeviceExternalIp(ip);
 
             retJsonData = await DAOUtils.beginInsertOrUpdateTransaction(sqlCon, [user, device]);
 

@@ -9,8 +9,10 @@ class UserModel extends DAO {
             user_name: null,
             user_email: null,
             user_profile_url: null,
+            user_profile_google_url: null,
+            user_profile_fb_url: null,
+            user_google_id: null,
             user_fb_id: null,
-            user_google_id: null
         };
 
         this.fields = { ...this.defaultFields };

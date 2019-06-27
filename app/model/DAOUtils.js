@@ -100,8 +100,6 @@ class DAOUtils {
                             
                             const isInsert = await element.selectSingle(['id'], true);
 
-                            console.log(isInsert);
-
                             if (isInsert.length === 0) {
                                 transRet = await element.insertByTransaction(con);
                             } else {
