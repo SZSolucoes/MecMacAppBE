@@ -1,9 +1,11 @@
 const _ = require('lodash');
 const DAO = require('./DAO');
 
+const unique = ['user_email'];
+
 class UserModel extends DAO {
     constructor(sqlCon, sockets) {
-        super(sqlCon, sockets, 'users', ['user_email']);
+        super(sqlCon, sockets, 'users', unique);
 
         this.defaultFields = {
             user_name: null,

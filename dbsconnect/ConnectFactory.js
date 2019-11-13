@@ -1,13 +1,14 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 const util = require('util');
 const { sqlkeys } = require('../keys/Keys');
 
 const mysqlConnection = () => {
     const con = mysql.createConnection({
-        host     : sqlkeys.host,
-        user     : sqlkeys.user,
-        password : sqlkeys.password,
-        database : sqlkeys.database
+        host: sqlkeys.host,
+        user: sqlkeys.user,
+        password: sqlkeys.password,
+        database: sqlkeys.database,
+        multipleStatements: true
     });
 
     con.query = util.promisify(con.query);

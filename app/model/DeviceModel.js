@@ -1,9 +1,11 @@
 const _ = require('lodash');
 const DAO = require('./DAO');
 
+const unique = ['device_uniqueid'];
+
 class DeviceModel extends DAO {
     constructor(sqlCon, sockets) {
-        super(sqlCon, sockets, 'devices', ['device_uniqueid']);
+        super(sqlCon, sockets, 'devices', unique);
 
         this.defaultFields = {
             device_user_name: null,

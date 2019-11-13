@@ -9,6 +9,40 @@ class DAO {
         this.where = [];
     }
 
+    async select(fields = [...Object.keys(this.fields)], setOgrigatedFilter = false) {
+        if (setOgrigatedFilter) this.setOgrigatedFilter();
+
+        const con = this.sqlCon();
+        let ret = [];
+    
+        try {
+            con.connect();
+            let query = 'SELECT ?? FROM ??';
+            const values = [fields, this.table];
+
+            if (this.where.length) {
+                query += ' WHERE';
+
+                for (let index = 0; index < this.where.length; index++) {
+                    const element = this.where[index];
+
+                    query += ` (${element.field} ${element.operator} ?) ${element.condition}`;
+                    values.push(element.value);
+                }
+            }
+
+            const queryRet = await con.query(query, values);
+            const isOk = queryRet && queryRet instanceof Array && queryRet.length > 0;
+
+            if (isOk) ret = queryRet;
+        } catch (e) {
+            console.log(e);
+        }
+    
+        con.end();
+        return ret;
+    }
+
     async insert() {
         if (!this.checkObrigatedFields().valid) return false;
 

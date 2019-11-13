@@ -61,6 +61,7 @@ class DAOUtils {
     
                             if (!transRet) {
                                 resolve(false);
+                                return false;
                             }
                         }
     
@@ -140,9 +141,11 @@ class DAOUtils {
                         if (err) {
                             con.rollback();
                             resolve(false);
+                            return false
                         }
                         
                         resolve(true);
+                        return true;
                     })
                 } catch (e) {
                     console.log(e);
